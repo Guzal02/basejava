@@ -8,21 +8,17 @@ public class ArrayStorage {
     private int size;
 
     void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     void save(Resume resume) {
-        if (size >= 10000) {
+        if (size >= storage.length) {
             System.out.println("Хранилище заполнено!");
             return;
         }
         if (resume != null) {
-            if (size == 0) {
-                storage[0] = resume;
-            } else {
-                storage[size] = resume;
-            }
+            storage[size] = resume;
             size++;
             System.out.println(resume + " - сохранен!");
         } else {
@@ -48,16 +44,10 @@ public class ArrayStorage {
         if (uuid != null) {
             for (int i = 0; i < size; i++) {
                 if (storage[i].getUuid().equals(uuid)) {
-                    Resume[] newStorage = new Resume[storage.length];
-                    System.arraycopy(storage, 0, newStorage, 0, i);
+                    if (size - 1 - i >= 0) System.arraycopy(storage, i + 1, storage, i, size - 1 - i);
+                    storage[size - 1] = null;
                     size--;
-                    if (storage.length - 1 - i >= 0)
-                        System.arraycopy(storage, i + 1, newStorage, i, storage.length - 1 - i);
-                    System.out.println(uuid + " - удален!");
-                    storage = newStorage;
-                    return;
-                } else {
-                    System.out.println("Данный " + uuid + " не существует!");
+                    System.out.println(uuid + " удален!");
                 }
             }
         } else {
@@ -69,9 +59,9 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] filledStorage = new Resume[size];
-        System.arraycopy(storage, 0, filledStorage, 0, size);
-        return filledStorage;
+        Resume[] resumes = new Resume[size];
+        System.arraycopy(storage, 0, resumes, 0, size);
+        return resumes;
     }
 
     int size() {
