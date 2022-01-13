@@ -18,4 +18,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         System.arraycopy(storage, indexInArray, storage, indexInArray + 1, size - indexInArray);
         storage[indexInArray] = resume;
     }
+
+    @Override
+    protected void deletedElement(int index) {
+        int numMoved = size - 1 - index;
+        if (numMoved > 0) {
+            System.arraycopy(storage, index + 1, storage, index, numMoved);
+        }
+    }
 }
