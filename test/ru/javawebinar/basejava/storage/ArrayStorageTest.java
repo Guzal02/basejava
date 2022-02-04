@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.model.Resume;
 
-public class ArrayStorageTest extends AbstractArrayStorageTest {
+public class ArrayStorageTest extends AbstractStorageTest {
     ArrayStorage arrayStorage;
 
     public ArrayStorageTest() {
@@ -13,14 +13,14 @@ public class ArrayStorageTest extends AbstractArrayStorageTest {
     }
 
     @Before
-    public void setUp() throws Exception {
-        setUpAbstractArrayStorageTest();
+    public void setUp() {
+        setUpAbstractStorageTest();
         arrayStorage = (ArrayStorage) storage;
     }
 
     @Test
     public void getIndexOutOfRange() {
-        Assert.assertEquals(-1, arrayStorage.getIndex("uuid5"));
+        Assert.assertEquals((Integer) (-1), arrayStorage.getSearchKey("uuid5"));
     }
 
     @Test
@@ -32,6 +32,6 @@ public class ArrayStorageTest extends AbstractArrayStorageTest {
     @Test
     public void deletedElement() {
         arrayStorage.deletedElement(0);
-        Assert.assertEquals(-1, arrayStorage.getIndex("uuid1"));
+        Assert.assertEquals((Integer) (-1), arrayStorage.getSearchKey("uuid1"));
     }
 }

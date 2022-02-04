@@ -7,7 +7,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorageTest extends AbstractArrayStorageTest {
+public class SortedArrayStorageTest extends AbstractStorageTest {
     SortedArrayStorage sortedArrayStorage;
 
     public SortedArrayStorageTest() {
@@ -16,13 +16,13 @@ public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     @Before
     public void setUp() throws Exception {
-        setUpAbstractArrayStorageTest();
+        setUpAbstractStorageTest();
         sortedArrayStorage = (SortedArrayStorage) storage;
     }
 
     @Test
-    public void getIndex() {
-        Assert.assertEquals(0, sortedArrayStorage.getIndex("uuid1"));
+    public void getSearchKey() {
+        Assert.assertEquals((Integer) 0, sortedArrayStorage.getSearchKey("uuid1"));
     }
 
     @Test
