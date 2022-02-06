@@ -1,8 +1,10 @@
 package ru.javawebinar.basejava.storage;
 
-public class ListStorageTest extends AbstractStorageTest {
+import static org.junit.Assert.*;
 
-    public ListStorageTest() {
+public class MapFullNameStorageTest extends AbstractStorageTest {
+
+    public MapFullNameStorageTest() {
         super(new ListStorage());
     }
 

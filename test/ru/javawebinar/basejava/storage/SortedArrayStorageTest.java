@@ -6,6 +6,7 @@ import org.junit.Test;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class SortedArrayStorageTest extends AbstractStorageTest {
     SortedArrayStorage sortedArrayStorage;
@@ -34,10 +35,7 @@ public class SortedArrayStorageTest extends AbstractStorageTest {
     @Test
     public void deletedElement() {
         sortedArrayStorage.deletedElement(1);
-        String[] expected = {"uuid1", "uuid3", "uuid3"};
-        Assert.assertEquals(
-                Arrays.toString(expected),
-                Arrays.toString(sortedArrayStorage.getAll()));
+        List<Resume> expected = Arrays.asList(RESUME_1, RESUME_3, RESUME_3);
+        Assert.assertEquals(expected, sortedArrayStorage.getAllSorted());
     }
-
 }

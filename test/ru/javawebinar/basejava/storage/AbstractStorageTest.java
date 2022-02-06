@@ -9,29 +9,34 @@ import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static ru.javawebinar.basejava.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
-public abstract class AbstractStorageTest  {
+public abstract class AbstractStorageTest {
     protected final Storage storage;
 
     protected static final String UUID_1 = "uuid1";
     protected static final String UUID_2 = "uuid2";
     protected static final String UUID_3 = "uuid3";
     protected static final String UUID_4 = "uuid4";
+    protected static final String NAME_1 = "name1";
+    protected static final String NAME_2 = "name2";
+    protected static final String NAME_3 = "name3";
+    protected static final String NAME_4 = "name4";
 
-    private static final Resume RESUME_1;
-    private static final Resume RESUME_2;
-    private static final Resume RESUME_3;
-    private static final Resume RESUME_4;
+    protected static final Resume RESUME_1;
+    protected static final Resume RESUME_2;
+    protected static final Resume RESUME_3;
+    protected static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1);
-        RESUME_2 = new Resume(UUID_2);
-        RESUME_3 = new Resume(UUID_3);
-        RESUME_4 = new Resume(UUID_4);
+        RESUME_1 = new Resume(UUID_1, NAME_1);
+        RESUME_2 = new Resume(UUID_2, NAME_2);
+        RESUME_3 = new Resume(UUID_3, NAME_3);
+        RESUME_4 = new Resume(UUID_4, NAME_4);
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -71,12 +76,9 @@ public abstract class AbstractStorageTest  {
 
     @Test
     public void getAll() {
-        Resume[] actual = storage.getAll();
-        String[] expected = {"uuid1", "uuid2", "uuid3"};
-        assertEquals(3, actual.length);
-        Assert.assertEquals(
-                Arrays.toString(expected),
-                Arrays.toString(actual));
+        List<Resume> actual = storage.getAllSorted();
+        List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -91,18 +93,18 @@ public abstract class AbstractStorageTest  {
         storage.save(RESUME_1);
     }
 
-        @Test
-        public void storageOverflow() {
-            storage.clear();
-            try {
-                for (int i = 0; i < STORAGE_LIMIT; i++) {
-                    storage.save(new Resume());
-                }
-            } catch (StorageException e) {
-                Assert.fail("Overflow happened ahead of time!");
+    @Test
+    public void storageOverflow() {
+        storage.clear();
+        try {
+            for (int i = 0; i < STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
             }
-            Assert.assertEquals(STORAGE_LIMIT, storage.size());
-            Assert.assertThrows(StorageException.class, () -> storage.save(new Resume()));
+        } catch (StorageException e) {
+            Assert.fail("Overflow happened ahead of time!");
+        }
+        Assert.assertEquals(STORAGE_LIMIT, storage.size());
+        Assert.assertThrows(StorageException.class, () -> storage.save(new Resume()));
     }
 
     @Test(expected = NotExistStorageException.class)
