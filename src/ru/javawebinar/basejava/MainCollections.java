@@ -6,22 +6,29 @@ import java.util.*;
 
 public class MainCollections {
     protected static final String UUID_1 = "uuid1";
-    protected static final Resume RESUME_1 = new Resume(UUID_1);
+    protected static final Resume RESUME_1 = new Resume(UUID_1, "Name1");
 
     protected static final String UUID_2 = "uuid2";
-    protected static final Resume RESUME_2 = new Resume(UUID_2);
+    protected static final Resume RESUME_2 = new Resume(UUID_2, "Name2");
 
     protected static final String UUID_3 = "uuid3";
-    protected static final Resume RESUME_3 = new Resume(UUID_3);
+    protected static final Resume RESUME_3 = new Resume(UUID_3, "Name3");
 
     protected static final String UUID_4 = "uuid4";
-    protected static final Resume RESUME_4 = new Resume(UUID_4);
+    protected static final Resume RESUME_4 = new Resume(UUID_4, "Name4");
 
     public static void main(String[] args) {
         Collection<Resume> collection = new ArrayList<>();
         collection.add(RESUME_1);
         collection.add(RESUME_2);
         collection.add(RESUME_3);
+
+        for (Resume r : collection) {
+            System.out.println(r);
+            if (Objects.equals(r.getUuid(), UUID_1)) {
+//                collection.remove(r);
+            }
+        }
 
         Iterator<Resume> iterator = collection.iterator();
         while (iterator.hasNext()) {
@@ -46,7 +53,7 @@ public class MainCollections {
         for (Map.Entry<String, Resume> entry : map.entrySet()) {
             System.out.println(entry.getValue());
         }
-        
+
         List<Resume> resumes = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         resumes.remove(1);
         System.out.println(resumes);

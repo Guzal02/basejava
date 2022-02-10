@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.model.Resume;
 
-public class ArrayStorageTest extends AbstractStorageTest {
+public class ArrayStorageTest extends AbstractArrayStorageTest {
     ArrayStorage arrayStorage;
 
     public ArrayStorageTest() {
@@ -25,7 +25,7 @@ public class ArrayStorageTest extends AbstractStorageTest {
 
     @Test
     public void retainedElement() {
-        arrayStorage.retainedElement(new Resume(UUID_1), 0);
+        arrayStorage.retainedElement(new Resume(UUID_1, "Name1"), 0);
         Assert.assertEquals(3, arrayStorage.size());
     }
 
