@@ -29,7 +29,7 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        printDirectoryDeeply(dir, " ");
+        printDirectoryDeeply(dir, "");
     }
 
     public static void printDirectoryDeeply(File dir, String offset) {
@@ -41,7 +41,7 @@ public class MainFile {
                     System.out.println(offset + "File: " + file.getName());
                 } else if (file.isDirectory()) {
                     System.out.println(offset + "Directory: " + file.getName());
-                    printDirectoryDeeply(file, offset + " ");
+                    printDirectoryDeeply(file, offset + "  ");
                 }
             }
         }
