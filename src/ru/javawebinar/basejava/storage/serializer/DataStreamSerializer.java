@@ -2,6 +2,8 @@ package ru.javawebinar.basejava.storage.serializer;
 
 import ru.javawebinar.basejava.model.ContactType;
 import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.Section;
+import ru.javawebinar.basejava.model.SectionType;
 
 import java.io.*;
 import java.util.Map;
@@ -18,6 +20,12 @@ public class DataStreamSerializer implements StreamSerializer {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
             }
+            Map<SectionType, Section> sections = r.getSections();
+            dos.writeInt(sections.size());
+            for (Map.Entry<SectionType, Section> entry : r.getSections().entrySet()) {
+                dos.writeUTF(entry.getKey().name());
+                dos.writeUTF(entry.getValue().toString());
+            }
         }
     }
 
@@ -30,7 +38,13 @@ public class DataStreamSerializer implements StreamSerializer {
             int size = dis.read();
             for (int i = 0; i < size; i++) {
                 resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
-            } return resume;
+                try {
+                    resume.addSection(SectionType.valueOf(dis.readUTF()), (Section) new ObjectInputStream(dis).readObject());
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            return resume;
         }
     }
 }
