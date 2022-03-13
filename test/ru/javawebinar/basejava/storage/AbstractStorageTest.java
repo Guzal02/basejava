@@ -9,10 +9,11 @@ import ru.javawebinar.basejava.model.*;
 
 import java.io.File;
 import java.time.Month;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("C:\\Users\\02guz\\Desktop\\java\\basejava\\basejava\\storage");
@@ -99,7 +100,10 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAllSorted() {
         List<Resume> actual = storage.getAllSorted();
-        List<Resume> expected = Arrays.asList(R1, R2, R3);
+        List<Resume> expected = new ArrayList<>();
+        expected.add(R1);
+        expected.add(R2);
+        expected.add(R3);
         assertEquals(3, actual.size());
         Assert.assertEquals(expected, actual);
     }
