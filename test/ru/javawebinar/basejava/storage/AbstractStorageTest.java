@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import static ru.javawebinar.basejava.TestData.*;
 
 import static org.junit.Assert.assertEquals;
@@ -34,28 +35,28 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void size() {
+    public void size() throws Exception {
         assertSize(3);
     }
 
     @Test
-    public void clear() {
+    public void clear() throws Exception {
         storage.clear();
         assertSize(0);
     }
 
     @Test
-    public void update() {
+    public void update() throws Exception {
         Resume newResume = new Resume(UUID_1, "New Name");
-        newResume.addContact(ContactType.MAIL, "mail@gmail.com");
+        newResume.addContact(ContactType.MAIL, "mail1@google.com");
         newResume.addContact(ContactType.SKYPE, "NewSkype");
-        newResume.addContact(ContactType.MOBILE, "+7 968 212-54-45");
+        newResume.addContact(ContactType.MOBILE, "+7 921 222-22-22");
         storage.update(newResume);
         assertTrue(newResume.equals(storage.get(UUID_1)));
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void updateNotExist() {
+    public void updateNotExist() throws Exception {
         storage.get("dummy");
     }
 
@@ -69,38 +70,38 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void save() {
+    public void save() throws Exception {
         storage.save(R4);
         assertSize(4);
         assertGet(R4);
     }
 
     @Test(expected = ExistStorageException.class)
-    public void saveExist() {
+    public void saveExist() throws Exception {
         storage.save(R1);
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void delete() {
+    public void delete() throws Exception {
         storage.delete(UUID_1);
         assertSize(2);
         storage.get(UUID_1);
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void deleteNotExist() {
+    public void deleteNotExist() throws Exception {
         storage.delete("dummy");
     }
 
     @Test
-    public void get() {
+    public void get() throws Exception {
         assertGet(R1);
         assertGet(R2);
         assertGet(R3);
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getNotExist() {
+    public void getNotExist() throws Exception {
         storage.get("dummy");
     }
 

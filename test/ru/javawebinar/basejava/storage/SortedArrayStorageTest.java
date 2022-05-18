@@ -8,6 +8,8 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
+import static ru.javawebinar.basejava.TestData.*;
+
 public class SortedArrayStorageTest extends AbstractArrayStorageTest {
     SortedArrayStorage sortedArrayStorage;
 
@@ -23,7 +25,7 @@ public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     @Test
     public void getSearchKey() {
-        Assert.assertEquals((Integer) 0, sortedArrayStorage.getSearchKey("uuid1"));
+        Assert.assertEquals((Integer) 0, sortedArrayStorage.getSearchKey(UUID_1));
     }
 
     @Test

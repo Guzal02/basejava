@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ru.javawebinar.basejava.model.Resume;
+import static ru.javawebinar.basejava.TestData.*;
 
 public class ArrayStorageTest extends AbstractArrayStorageTest {
     ArrayStorage arrayStorage;
